@@ -14,7 +14,7 @@ class Category(models.Model):
 
 
 class Subcategory(models.Model):
-  category = models.ForeignKey(Category, related_name="sub-category", on_delete=models.PROTECT)
+  category = models.ForeignKey(Category, related_name="sub_category", on_delete=models.PROTECT)
   name = models.CharField(max_length=255)
   slug = models.SlugField(max_length=255, unique=True)
   
@@ -31,7 +31,7 @@ class Product(models.Model):
   slug = models.SlugField(max_length=255, unique=True)
   author = models.CharField(max_length=255, default="Admin")
   description = models.TextField(blank=True, null=True)
-  image = models.ImageField(upload_to="images/")
+  #image = models.ImageField(upload_to="images/")
   price = models.DecimalField(max_digits=4, decimal_places=2)
   added_by = models.ForeignKey(User, related_name="vendor", on_delete=models.CASCADE)
   in_stock = models.BooleanField(default=True)
