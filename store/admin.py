@@ -2,20 +2,19 @@ from django.contrib import admin
 from .models import Category, Subcategory, Product
 
 # Register your models here.
-@admin_register(Category):
+@admin_register(Category)
   class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
 
 
-@admin_register(Subcategory):
+@admin_register(Subcategory)
   class SubcategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
 
 
-@admin_register(Product):
-  class ProductAdmin(admin.ModelAdmin):
+@admin_register(Product)  class ProductAdmin(admin.ModelAdmin):
     list_display = ['title', 'author', 'slug', 'price', 'in_stock', 'created', 'updated']
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ['in_stock', 'is_active']
