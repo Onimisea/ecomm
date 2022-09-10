@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 class Category(models.Model):
@@ -9,29 +10,36 @@ class Category(models.Model):
   class Meta:
     verbose_name_plural = "categories"
   
+  def get_absolute_url(self):
+    return reverse('store:category_list', args=[self.slug])
+
   def __str__(self):
     return self.name
 
 
 class Subcategory(models.Model):
-  category = models.ForeignKey(Category, related_name="sub_category", on_delete=models.PROTECT)
+  category = models.ForeignKey(Category, related_name="subcategory", on_delete=models.PROTECT)
   name = models.CharField(max_length=255)
   slug = models.SlugField(max_length=255, unique=True)
   
   class Meta:
-    verbose_name_plural = "sub-categories"
-  
+    verbose_name_plural = "subcategories"
+
+  def get_absolute_url(self):
+    return reverse('store:product_detail', args=[self.slug])
+
   def __str__(self):
     return self.name
 
 
 class Product(models.Model):
-  sub_category = models.ForeignKey(Subcategory, related_name="product", on_delete=models.PROTECT)
+  category = models.ForeignKey(Category, related_name="product_category", on_delete=models.PROTECT)
+  subcategory = models.ForeignKey(Subcategory, related_name="product_subcategory", on_delete=models.PROTECT)
   title = models.CharField(max_length=255)
   slug = models.SlugField(max_length=255, unique=True)
   author = models.CharField(max_length=255, default="Admin")
   description = models.TextField(blank=True, null=True)
-  #image = models.ImageField(upload_to="images/")
+  image = models.ImageField(upload_to="images/")
   price = models.DecimalField(max_digits=4, decimal_places=2)
   added_by = models.ForeignKey(User, related_name="vendor", on_delete=models.CASCADE)
   in_stock = models.BooleanField(default=True)
@@ -42,6 +50,9 @@ class Product(models.Model):
   class Meta:
     verbose_name_plural = "products"
     ordering = ("-created",)
+  
+  def get_absolute_url(self):
+    return reverse('store:product_detail', args=[self.slug])
   
   def __str__(self):
     return self.title

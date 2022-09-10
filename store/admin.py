@@ -10,13 +10,13 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Subcategory)
 class SubcategoryAdmin(admin.ModelAdmin):
-  list_display = ['name', 'slug']
+  list_display = ['name', 'slug', 'category']
   prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-  list_display = ['title', 'author', 'slug', 'price', 'in_stock', 'created', 'updated']
+  list_display = ['title', 'author', 'category', 'subcategory', 'slug', 'price', 'in_stock', 'created', 'updated']
   prepopulated_fields = {'slug': ('title',)}
-  list_filter = ['in_stock', 'is_active']
+  list_filter = ['category', 'subcategory', 'in_stock', 'is_active']
   list_editable = ['price', 'in_stock']
