@@ -1,26 +1,12 @@
-{% extends "./base.html" %} {% load static %} {% block title %} BookShop | Home
-{% endblock %} {% block content %}
-<section class="hero">
-	<section class="py-5 text-center container">
-		<div class="row py-lg-3">
-			<div class="col-lg-6 col-md-8 mx-auto">
-				<h1 class="h1 fw-bold">Search, Read, Buy, Review</h1>
-				<p class="lead text-muted">
-					Something short and leading about the collection below—its contents,
-					the creator, etc. Make it short and sweet, but not too short so folks
-					don't simply skip over it entirely.
-				</p>
-				<p>
-					<a href="#" class="btn btn-primary my-2">Make an account</a>
-				</p>
-			</div>
-		</div>
-	</section>
-</section>
+{% extends "../base.html" %} {% load static %} {% block title %} Categories |
+BookShop {% endblock %} {% block content %}
 
 <section class="album py-5 bg-light">
 	<section class="container">
-		<div class="pb-3 h5">All Books</div>
+		<div class="pb-3 h5">
+			<a href="{{category.get_absolute_url}}">{{category.name}}</a> >
+			<a href="{{subcategory.get_absolute_url}}">{{subcategory.name}}</a> Books
+		</div>
 		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
 			{% for product in products %}
 
@@ -50,4 +36,5 @@
 		</div>
 	</section>
 </section>
+
 {% endblock %}

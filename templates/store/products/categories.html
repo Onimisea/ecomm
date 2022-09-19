@@ -1,0 +1,23 @@
+{% extends "../base.html" %} {% load static %} {% block title %} Categories |
+BookShop {% endblock %} {% block content %}
+
+<section class="album py-5 bg-light">
+	<section class="container">
+		<div class="pb-3 h3">All Categories</div>
+		{% for category in categories %}
+		<ul>
+			<li class="h5">
+				<a href="{{category.get_absolute_url}}">{{category}}</a> 
+        {% for subcategory in subcategories %} 
+        {% if subcategory.category == category %}
+				<ul>
+					<li class="h6"><a href="{{ category.get_absolute_url }}{{ subcategory.slug }}">{{ subcategory }}</a></li>
+				</ul>
+				{% endif %} 
+        {% endfor %}
+			</li>
+		</ul>
+		{% endfor %}
+	</section>
+</section>
+{% endblock %}
